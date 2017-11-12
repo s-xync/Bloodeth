@@ -45,6 +45,11 @@ contract Bloodeth{
         bloodCostInfo(BLOODCOST);
     }
     
+    function getBBdetails(address _bbaddress) public constant returns(bytes16,uint,uint,uint,uint,uint,uint,uint,uint,uint){
+        var tempBloodBank=bloodBanks[_bbaddress];
+        return (tempBloodBank.bbname,tempBloodBank.accountBalance,tempBloodBank.apos,tempBloodBank.aneg,tempBloodBank.bpos,tempBloodBank.bneg,tempBloodBank.abpos,tempBloodBank.abneg,tempBloodBank.opos,tempBloodBank.oneg);
+    }
+    
     function setBloodCost(uint _bloodCost) public onlyOwner{
         if(_bloodCost>0){
             BLOODCOST=_bloodCost;
@@ -239,7 +244,7 @@ contract Bloodeth{
         }
     }
     
-    function requestBloodFromOthers(uint _option) public onlyBB{
+    function requestBloodFromOthers(uint _option) private onlyBB{
         var requestedBloodBank=bloodBanks[msg.sender];
         if(requestedBloodBank.accountBalance>BLOODCOST){
             for(uint i=0;i<bbaddresses.length;i++){
