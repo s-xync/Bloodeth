@@ -16,7 +16,7 @@ contract Bloodeth{
         uint oneg;
     }
     mapping (address => bloodBank) bloodBanks;
-    address[] public bbaddresses;
+    address[] bbaddresses;
     event bbInfo(
         bytes16 bbname,
         uint accountBalance,
@@ -50,6 +50,10 @@ contract Bloodeth{
         return (tempBloodBank.bbname,tempBloodBank.accountBalance,tempBloodBank.apos,tempBloodBank.aneg,tempBloodBank.bpos,tempBloodBank.bneg,tempBloodBank.abpos,tempBloodBank.abneg,tempBloodBank.opos,tempBloodBank.oneg);
     }
     
+    function getBBaddresses() public constant returns(address[]){
+        return bbaddresses;
+    }
+    
     function setBloodCost(uint _bloodCost) public onlyOwner{
         if(_bloodCost>0){
             BLOODCOST=_bloodCost;
@@ -58,7 +62,7 @@ contract Bloodeth{
     }
 
     
-    function addBloodBank(address _bbaddress,bytes16 _bbname) onlyOwner public{
+    function addBloodBank(address _bbaddress,bytes16 _bbname) onlyOwner public constant returns(address[]){
         if(_bbname.length>0){
             var tempBloodBank=bloodBanks[_bbaddress];
             bbaddresses.push(_bbaddress) -1;
@@ -73,9 +77,43 @@ contract Bloodeth{
             tempBloodBank.opos=0;
             tempBloodBank.oneg=0;
             bbInfo(_bbname,tempBloodBank.accountBalance,tempBloodBank.apos,tempBloodBank.aneg,tempBloodBank.bpos,tempBloodBank.bneg,tempBloodBank.abpos,tempBloodBank.abneg,tempBloodBank.opos,tempBloodBank.oneg);
+            return getBBaddresses();
         }
         
     }
+    
+    function removeBloodBank(address _bbaddress) onlyOwner public constant returns(address[]){
+        bool flag=false;
+        uint index=0;
+        for(uint i=0;i<bbaddresses.length;i++){
+            if(bbaddresses[i]==_bbaddress){
+                index=i;
+                flag=true;
+                break;
+            }
+        }
+        if(flag==true){
+            for(uint j = index; i<bbaddresses.length-1; i++){
+                bbaddresses[j] = bbaddresses[j+1];
+            }
+            delete bbaddresses[bbaddresses.length-1];
+            bbaddresses.length--;
+            var tempBloodBank=bloodBanks[_bbaddress];
+            tempBloodBank.bbname="";
+            tempBloodBank.accountBalance=0;
+            tempBloodBank.apos=0;
+            tempBloodBank.aneg=0;
+            tempBloodBank.bpos=0;
+            tempBloodBank.bneg=0;
+            tempBloodBank.abpos=0;
+            tempBloodBank.abneg=0;
+            tempBloodBank.opos=0;
+            tempBloodBank.oneg=0;
+        }
+        return getBBaddresses();
+        
+    }
+    
    modifier onlyOwner {
        require(msg.sender == owner);
        _;
@@ -86,6 +124,7 @@ contract Bloodeth{
         for(uint i=0;i<bbaddresses.length;i++){
             if(bbaddresses[i]==msg.sender){
                 flag=true;
+                break;
             }
         }
         require(flag==true);

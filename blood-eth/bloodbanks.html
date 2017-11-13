@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Blood Banks | BloodEth</title>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+
+    <script src="./node_modules/web3/dist/web3.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+
+        <h1>BloodEth</h1>
+        <h4>Returned Result</h4>
+        <p id="result"></p>
+        <img id="loader1" src="lg.double-ring-spinner.gif">
+        <h4>Event Result</h4>
+        <span id="insTrans"></span>
+        <p id="eventResult"></p>
+        <img id="loader2" src="lg.double-ring-spinner.gif">
+        <button id="allBBaddresses">Get Blood Bank Addresses</button>
+        <label for="getBBaddress" class="col-lg-2 control-label">Blood Bank Address</label>
+        <input id="getBBaddress" type="text">
+        <button id="bbDetails">Get Details</button>
+        <label for="name" class="col-lg-2 control-label">Instructor Name</label>
+        <input id="name" type="text">
+        <label for="name" class="col-lg-2 control-label">Instructor Age</label>
+        <input id="age" type="text">
+        <button id="button">Update Instructor</button>
+
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+    <script>
+        if(typeof web3 !== 'undefined'){
+            web3 = new Web3(web3.currentProvider);
+        }else{
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+        web3.eth.defaultAccount = web3.eth.accounts[1];//index of account
+
+        var BloodEthContract = web3.eth.contract([{"constant":false,"inputs":[{"name":"_bloodCost","type":"uint256"}],"name":"setBloodCost","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_amount","type":"uint256"}],"name":"addMoneyToAccount","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_option","type":"uint256"}],"name":"addBlood","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_bbaddress","type":"address"},{"name":"_bbname","type":"bytes16"}],"name":"addBloodBank","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_bbaddress","type":"address"}],"name":"getBBdetails","outputs":[{"name":"","type":"bytes16"},{"name":"","type":"uint256"},{"name":"","type":"uint256"},{"name":"","type":"uint256"},{"name":"","type":"uint256"},{"name":"","type":"uint256"},{"name":"","type":"uint256"},{"name":"","type":"uint256"},{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_option","type":"uint256"}],"name":"requestBlood","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getBBaddresses","outputs":[{"name":"","type":"address[]"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"bbname","type":"bytes16"},{"indexed":false,"name":"accountBalance","type":"uint256"},{"indexed":false,"name":"apos","type":"uint256"},{"indexed":false,"name":"aneg","type":"uint256"},{"indexed":false,"name":"bpos","type":"uint256"},{"indexed":false,"name":"bneg","type":"uint256"},{"indexed":false,"name":"abpos","type":"uint256"},{"indexed":false,"name":"abneg","type":"uint256"},{"indexed":false,"name":"opos","type":"uint256"},{"indexed":false,"name":"oneg","type":"uint256"}],"name":"bbInfo","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"bloodCost","type":"uint256"}],"name":"bloodCostInfo","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"bbname","type":"bytes16"},{"indexed":false,"name":"bloodType","type":"uint256"}],"name":"bloodRequestInfo","type":"event"}]);//ABI HERE
+        
+        var BloodEth = BloodEthContract.at('0xe55a45cfa39877849895e0040b7275f2681ccedd');//CONTRACT ADDRESS HERE
+        
+        // Coursetro.getInstructor(function(error, result){
+        // if(!error){
+        //         $("#instructor").html(result[0]+' ('+result[1]+' years old)');
+        //         console.log(result);
+        //     }
+        //     else{
+        //         console.error(error)
+        //     }
+        // });
+
+        var bbInfoEvent=BloodEth.bbInfo({}, 'latest');
+        bbInfoEvent.watch(function(error,result){
+            if(result){
+                if(result.blockHash != $("#insTrans").html())
+                    $("#loader2").hide();
+                $("#insTrans").html('Block hash: ' + result.blockHash);
+                var htmlString="";
+                htmlString+="<p><b>After the changes:</b></p>";
+                htmlString+="<h3>Name: "+web3.toAscii(result.args.bbname)+"</h3>";
+                htmlString+="<h4>Account Balance: "+result.args.accountBalance+"</h4>";
+                htmlString+="<h5>A POS: "+result.args.apos+" &emsp; &emsp; A NEG: "+result.args.aneg+"</h5>";
+                htmlString+="<h5>B POS: "+result.args.bpos+" &emsp; &emsp; B NEG: "+result.args.bneg+"</h5>";
+                htmlString+="<h5>AB POS: "+result.args.abpos+" &emsp; &emsp; AB NEG: "+result.args.abneg+"</h5>";
+                htmlString+="<h5>O POS: "+result.args.opos+" &emsp; &emsp; O NEG: "+result.args.oneg+"</h5>";
+                $("#eventResult").html(htmlString);
+            }else{
+                $("#eventResult").html("<h4>Error Occured!</h4>");
+                console.error(error);
+                $("#loader2").hide();
+            }
+        });
+
+        var bloodRequestInfoEvent=BloodEth.bloodRequestInfo({}, 'latest');
+        bloodRequestInfoEvent.watch(function(error,result){
+            if(result){
+                if(result.blockHash != $("#insTrans").html())
+                    $("#loader2").hide();
+                $("#insTrans").html('Block hash: ' + result.blockHash);
+                var htmlString="";
+                if(result.args.bloodType>0 && result.args.bloodType<9){
+                    var bloodType="";
+                    switch(result.args.bloodType){
+                        case 1:
+                        bloodType="A Positive";
+                        break;
+                        case 2:
+                        bloodType="A Negative";
+                        break;
+                        case 3:
+                        bloodType="B Positive";
+                        break;
+                        case 4:
+                        bloodType="B Negative";
+                        break;
+                        case 5:
+                        bloodType="AB Positive";
+                        break;
+                        case 6:
+                        bloodType="AB Negative";
+                        break;
+                        case 7:
+                        bloodType="O Positive";
+                        break;
+                        case 8:
+                        bloodType="O Negative";
+                    }
+                    htmlString+="<h3>A unit of <i>"+bloodType+"</i> blood has been received from"+result.args.bbname+"</h3>";                    
+                }else{
+                    htmlString+="<h3>Sorry! No matching blood available.</h3>";
+                }
+                $("#eventResult").html(htmlString);
+            }else{
+                $("#eventResult").html("<h4>Error Occured!</h4>");
+                console.error(error);
+                $("#loader2").hide();
+            }
+        });
+
+        $("#allBBaddresses").click(function() {
+            $("loader1").hide();
+            BloodEth.getBBaddresses(function(error,result){
+                if(!error){
+                    var htmlString="";
+                    htmlString+="<ol>";
+                    for(var i=0;i<result.length;i++){
+                        htmlString+="<li>"+result[i]+"</li>";
+                    }
+                    htmlString+="</ol>";
+                    $("#result").html(htmlString);
+                }else{
+                    $("#result").html("<h4>Error Occured!</h4>");
+                    console.error(error);
+                }
+                $("loader1").hide();
+            });
+        });
+        $("#bbDetails").click(function() {
+            $("loader1").hide();
+            BloodEth.getBBdetails($("#getBBaddress").val(),function(error,result){
+                if(!error){
+                    var htmlString="";
+                    htmlString+="<h3>Name: "+web3.toAscii(result[0])+"</h3>";
+                    htmlString+="<h4>Account Balance: "+result[1]+"</h4>";
+                    htmlString+="<h5>A POS: "+result[2]+" &emsp; &emsp; A NEG: "+result[3]+"</h5>";
+                    htmlString+="<h5>B POS: "+result[4]+" &emsp; &emsp; B NEG: "+result[5]+"</h5>";
+                    htmlString+="<h5>AB POS: "+result[6]+" &emsp; &emsp; AB NEG: "+result[7]+"</h5>";
+                    htmlString+="<h5>O POS: "+result[8]+" &emsp; &emsp; O NEG: "+result[9]+"</h5>";
+                    $("#result").html(htmlString);
+                }else{
+                    $("#result").html("<h4>Error Occured!</h4>");
+                    console.error(error);
+                }
+                $("loader1").hide();
+            });
+        });
+
+    </script>
+
+</body>
+</html>
