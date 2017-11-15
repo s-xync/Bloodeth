@@ -17,7 +17,6 @@ contract Bloodeth{
     }
     mapping (address => bloodBank) bloodBanks;
     address[] bbaddresses;
-
     event BBInfo(
         bytes16 bbname,
         uint accountBalance,
@@ -40,9 +39,6 @@ contract Bloodeth{
         uint bloodType
     );
     
-    event RemovedBloodBank(
-        bool removed
-    );
     function Bloodeth() public{
         owner=msg.sender;
         BLOODCOST=3000;
@@ -58,19 +54,16 @@ contract Bloodeth{
         return bbaddresses;
     }
     
-    function getBloodCost() public constant returns(uint){
-        return BLOODCOST;
-    }
-
-    function setBloodCost(uint _bloodCost) onlyOwner public {
+    function setBloodCost(uint _bloodCost) onlyOwner public returns(uint){
         if(_bloodCost>0){
             BLOODCOST=_bloodCost;
         }
-        BloodCostInfo(BLOODCOST);
+        //BloodCostInfo(BLOODCOST);
+        return BLOODCOST;
     }
 
     
-    function addBloodBank(address _bbaddress,bytes16 _bbname) onlyOwner public payable{
+    function addBloodBank(address _bbaddress,bytes16 _bbname) onlyOwner public returns(bytes16,uint) {
         if(_bbname.length>0){
             var tempBloodBank=bloodBanks[_bbaddress];
             bbaddresses.push(_bbaddress) -1;
@@ -84,11 +77,13 @@ contract Bloodeth{
             tempBloodBank.abneg=0;
             tempBloodBank.opos=0;
             tempBloodBank.oneg=0;
-            BBInfo(_bbname,tempBloodBank.accountBalance,tempBloodBank.apos,tempBloodBank.aneg,tempBloodBank.bpos,tempBloodBank.bneg,tempBloodBank.abpos,tempBloodBank.abneg,tempBloodBank.opos,tempBloodBank.oneg);
+            return (tempBloodBank.bbname,tempBloodBank.accountBalance);
+            //BBInfo(_bbname,tempBloodBank.accountBalance,tempBloodBank.apos,tempBloodBank.aneg,tempBloodBank.bpos,tempBloodBank.bneg,tempBloodBank.abpos,tempBloodBank.abneg,tempBloodBank.opos,tempBloodBank.oneg);
         }
+        
     }
     
-    function removeBloodBank(address _bbaddress) onlyOwner public payable returns(address[]){
+    function removeBloodBank(address _bbaddress) onlyOwner public  returns(address[]){
         bool flag=false;
         uint index=0;
         for(uint i=0;i<bbaddresses.length;i++){
@@ -115,10 +110,9 @@ contract Bloodeth{
             tempBloodBank.abneg=0;
             tempBloodBank.opos=0;
             tempBloodBank.oneg=0;
-            RemovedBloodBank(true);
-        }else{
-            RemovedBloodBank(false);
         }
+        return bbaddresses;
+        
     }
     
    modifier onlyOwner {

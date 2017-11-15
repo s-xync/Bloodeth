@@ -36,7 +36,8 @@ contract Bloodeth{
     );
     
     event BloodRequestInfo(
-        bytes16 bbname,
+        bytes16 senderBBname,
+        bytes16 requestedBBname,
         uint bloodType
     );
     
@@ -176,113 +177,113 @@ contract Bloodeth{
             if(_option==1){
                 if(tempBloodBank.apos>0){
                     tempBloodBank.apos-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,1);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,1);
                 }else if(tempBloodBank.aneg>0){
                     tempBloodBank.aneg-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,2);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,2);
                 }else if(tempBloodBank.opos>0){
                     tempBloodBank.opos-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,7);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,7);
                 }else if(tempBloodBank.oneg>0){
                     tempBloodBank.oneg-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,8);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,8);
                 }else{
                     requestBloodFromOthers(1);
                 }
             }else if(_option==2){
                 if(tempBloodBank.aneg>0){
                     tempBloodBank.aneg-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,2);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,2);
                 }else if(tempBloodBank.oneg>0){
                     tempBloodBank.oneg-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,8);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,8);
                 }else{
                     requestBloodFromOthers(2);
                 }
             }else if(_option==3){
                 if(tempBloodBank.bpos>0){
                     tempBloodBank.bpos-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,3);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,3);
                 }else if(tempBloodBank.bneg>0){
                     tempBloodBank.bneg-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,4);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,4);
                 }else if(tempBloodBank.opos>0){
                     tempBloodBank.opos-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,7);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,7);
                 }else if(tempBloodBank.oneg>0){
                     tempBloodBank.oneg-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,8);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,8);
                 }else{
                     requestBloodFromOthers(3);
                 }
             }else if(_option==4){
                 if(tempBloodBank.bneg>0){
                     tempBloodBank.bneg-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,4);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,4);
                 }else if(tempBloodBank.oneg>0){
                     tempBloodBank.oneg-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,8);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,8);
                 }else{
                     requestBloodFromOthers(4);
                 }
             }else if(_option==5){
                 if(tempBloodBank.abpos>0){
                     tempBloodBank.abpos-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,5);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,5);
                 }else if(tempBloodBank.abneg>0){
                     tempBloodBank.abneg-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,6);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,6);
                 }else if(tempBloodBank.apos>0){
                     tempBloodBank.apos-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,1);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,1);
                 }else if(tempBloodBank.aneg>0){
                     tempBloodBank.aneg-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,2);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,2);
                 }else if(tempBloodBank.bpos>0){
                     tempBloodBank.bpos-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,3);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,3);
                 }else if(tempBloodBank.bneg>0){
                     tempBloodBank.bneg-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,4);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,4);
                 }else if(tempBloodBank.opos>0){
                     tempBloodBank.opos-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,7);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,7);
                 }else if(tempBloodBank.oneg>0){
                     tempBloodBank.oneg-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,8);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,8);
                 }else{
                     requestBloodFromOthers(5);
                 }
             }else if(_option==6){
                 if(tempBloodBank.abneg>0){
                     tempBloodBank.abneg-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,6);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,6);
                 }else if(tempBloodBank.aneg>0){
                     tempBloodBank.aneg-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,2);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,2);
                 }else if(tempBloodBank.bneg>0){
                     tempBloodBank.bneg-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,4);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,4);
                 }else if(tempBloodBank.oneg>0){
                     tempBloodBank.oneg-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,8);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,8);
                 }else{
                     requestBloodFromOthers(6);
                 }
             }else if(_option==7){
                 if(tempBloodBank.opos>0){
                     tempBloodBank.opos-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,7);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,7);
                 }else if(tempBloodBank.oneg>0){
                     tempBloodBank.oneg-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,8);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,8);
                 }else{
                     requestBloodFromOthers(7);
                 }
             }else if(_option==8){
                 if(tempBloodBank.oneg>0){
                     tempBloodBank.oneg-=1;
-                    BloodRequestInfo(tempBloodBank.bbname,8);
+                    BloodRequestInfo(tempBloodBank.bbname,tempBloodBank.bbname,8);
                 }else{
                     requestBloodFromOthers(8);
                 }
@@ -302,194 +303,194 @@ contract Bloodeth{
                             tempBloodBank.apos-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,1);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,1);
                             break;
                         }else if(tempBloodBank.aneg>0){
                             tempBloodBank.aneg-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,2);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,2);
                             break;
                         }else if(tempBloodBank.opos>0){
                             tempBloodBank.opos-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,7);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,7);
                             break;
                         }else if(tempBloodBank.oneg>0){
                             tempBloodBank.oneg-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,8);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,8);
                             break;
                         }else{
-                            BloodRequestInfo("XXXXXXXXXX",0);
+                            BloodRequestInfo("XXXXXXXXXX",requestedBloodBank.bbname,0);
                         }
                     }else if(_option==2){
                         if(tempBloodBank.aneg>0){
                             tempBloodBank.aneg-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,2);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,2);
                             break;
                         }else if(tempBloodBank.oneg>0){
                             tempBloodBank.oneg-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,8);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,8);
                             break;
                         }else{
-                            BloodRequestInfo("XXXXXXXXXX",0);
+                            BloodRequestInfo("XXXXXXXXXX",requestedBloodBank.bbname,0);
                         }
                     }else if(_option==3){
                         if(tempBloodBank.bpos>0){
                             tempBloodBank.bpos-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,3);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,3);
                             break;
                         }else if(tempBloodBank.bneg>0){
                             tempBloodBank.bneg-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,4);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,4);
                             break;
                         }else if(tempBloodBank.opos>0){
                             tempBloodBank.opos-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,7);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,7);
                             break;
                         }else if(tempBloodBank.oneg>0){
                             tempBloodBank.oneg-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,8);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,8);
                             break;
                         }else{
-                            BloodRequestInfo("XXXXXXXXXX",0);
+                            BloodRequestInfo("XXXXXXXXXX",requestedBloodBank.bbname,0);
                         }
                     }else if(_option==4){
                         if(tempBloodBank.bneg>0){
                             tempBloodBank.bneg-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,4);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,4);
                             break;
                         }else if(tempBloodBank.oneg>0){
                             tempBloodBank.oneg-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,8);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,8);
                             break;
                         }else{
-                            BloodRequestInfo("XXXXXXXXXX",0);
+                            BloodRequestInfo("XXXXXXXXXX",requestedBloodBank.bbname,0);
                         }
                     }else if(_option==5){
                         if(tempBloodBank.abpos>0){
                             tempBloodBank.abpos-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,5);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,5);
                             break;
                         }else if(tempBloodBank.abneg>0){
                             tempBloodBank.abneg-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,6);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,6);
                             break;
                         }else if(tempBloodBank.apos>0){
                             tempBloodBank.apos-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,1);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,1);
                             break;
                         }else if(tempBloodBank.aneg>0){
                             tempBloodBank.aneg-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,2);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,2);
                             break;
                         }else if(tempBloodBank.bpos>0){
                             tempBloodBank.bpos-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,3);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,3);
                             break;
                         }else if(tempBloodBank.bneg>0){
                             tempBloodBank.bneg-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,4);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,4);
                             break;
                         }else if(tempBloodBank.opos>0){
                             tempBloodBank.opos-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,7);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,7);
                             break;
                         }else if(tempBloodBank.oneg>0){
                             tempBloodBank.oneg-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,8);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,8);
                             break;
                         }else{
-                            BloodRequestInfo("XXXXXXXXXX",0);
+                            BloodRequestInfo("XXXXXXXXXX",requestedBloodBank.bbname,0);
                         }
                     }else if(_option==6){
                         if(tempBloodBank.abneg>0){
                             tempBloodBank.abneg-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,6);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,6);
                             break;
                         }else if(tempBloodBank.aneg>0){
                             tempBloodBank.aneg-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,2);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,2);
                             break;
                         }else if(tempBloodBank.bneg>0){
                             tempBloodBank.bneg-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,4);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,4);
                             break;
                         }else if(tempBloodBank.oneg>0){
                             tempBloodBank.oneg-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,8);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,8);
                             break;
                         }else{
-                            BloodRequestInfo("XXXXXXXXXX",0);
+                            BloodRequestInfo("XXXXXXXXXX",requestedBloodBank.bbname,0);
                         }
                     }else if(_option==7){
                         if(tempBloodBank.opos>0){
                             tempBloodBank.opos-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,7);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,7);
                             break;
                         }else if(tempBloodBank.oneg>0){
                             tempBloodBank.oneg-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,8);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,8);
                             break;
                         }else{
-                            BloodRequestInfo("XXXXXXXXXX",0);
+                            BloodRequestInfo("XXXXXXXXXX",requestedBloodBank.bbname,0);
                         }
                     }else if(_option==8){
                         if(tempBloodBank.oneg>0){
                             tempBloodBank.oneg-=1;
                             requestedBloodBank.accountBalance-=BLOODCOST;
                             tempBloodBank.accountBalance+=BLOODCOST;
-                            BloodRequestInfo(tempBloodBank.bbname,8);
+                            BloodRequestInfo(tempBloodBank.bbname,requestedBloodBank.bbname,8);
                             break;
                         }else{
-                            BloodRequestInfo("XXXXXXXXXX",0);
+                            BloodRequestInfo("XXXXXXXXXX",requestedBloodBank.bbname,0);
                         }
                     }
                 }
