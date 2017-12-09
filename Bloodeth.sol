@@ -43,6 +43,8 @@ contract Bloodeth{
     event RemovedBloodBank(
         bool removed
     );
+
+    //constructor
     function Bloodeth() public{
         owner=msg.sender;
         BLOODCOST=3000;
@@ -59,7 +61,7 @@ contract Bloodeth{
     }
     
     function getBloodCost() public constant returns(uint){
-        return BLOODCOST;
+        return (BLOODCOST);
     }
 
     function setBloodCost(uint _bloodCost) onlyOwner public {
@@ -70,7 +72,7 @@ contract Bloodeth{
     }
 
     
-    function addBloodBank(address _bbaddress,bytes16 _bbname) onlyOwner public payable{
+    function addBloodBank(address _bbaddress,bytes16 _bbname) onlyOwner public {
         if(_bbname.length>0){
             var tempBloodBank=bloodBanks[_bbaddress];
             bbaddresses.push(_bbaddress) -1;
@@ -88,7 +90,7 @@ contract Bloodeth{
         }
     }
     
-    function removeBloodBank(address _bbaddress) onlyOwner public payable returns(address[]){
+    function removeBloodBank(address _bbaddress) onlyOwner public {
         bool flag=false;
         uint index=0;
         for(uint i=0;i<bbaddresses.length;i++){
